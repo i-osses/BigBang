@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">BigBang</string>
+    <string name="beer_name">Beer Name</string>
+    <string name="beerimage">beerimage</string>
+    <string name="beerImage" />
+    <string name="tip_of_brand">tip_of_brand</string>
+</resources>
