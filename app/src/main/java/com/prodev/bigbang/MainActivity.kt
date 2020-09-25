@@ -11,11 +11,9 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prodev.bigbang.model.Beer
 import com.prodev.bigbang.model.adapter.MainAdapter
-import com.prodev.bigbang.model.db.BeerDatabase
-import com.prodev.bigbang.model.repository.BeerRepository
 import com.prodev.bigbang.model.util.Status.*
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.beer_item.view.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,11 +24,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val dao = BeerDatabase.getInstance(application).beerDAO
-        val repository = BeerRepository(dao)
-        val factory = MainViewModelFactory(repository)
-
-        mViewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
+        mViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         setupUI()
         setupObserver()

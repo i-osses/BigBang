@@ -5,10 +5,7 @@ import com.prodev.bigbang.model.Beer
 import com.prodev.bigbang.model.db.BeerDAO
 import com.prodev.bigbang.model.network.RetrofitInstance.Companion.apiService
 
-class BeerRepository(
-    private val dao: BeerDAO,
-
-    ) {
+class BeerRepository(private val dao: BeerDAO) {
 
     val beer = dao.getAllBeer()
     val myResponse: MutableLiveData<List<Beer>> = MutableLiveData()

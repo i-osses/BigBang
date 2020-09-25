@@ -1,15 +1,27 @@
 package com.prodev.bigbang
 
-import androidx.lifecycle.*
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import com.prodev.bigbang.model.Beer
+import com.prodev.bigbang.model.db.BeerDatabase
 import com.prodev.bigbang.model.repository.BeerRepository
 import com.prodev.bigbang.model.util.Resource
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
-class MainViewModel(private val repository: BeerRepository) : ViewModel() {
 
-    val beer = repository.beer
+class MainViewModel(application: Application) : AndroidViewModel(application) {
+
+    private val repository : BeerRepository
+
+    val beer: LiveData<List<Beer>>
+
+    init{
+        repository = BeerRepository(BeerDatabase.getInstance(application).getDao())
+        beer = repository.beer
+    }
     val myResponse: MutableLiveData<List<Beer>> = MutableLiveData()
 
     val inputId = MutableLiveData<Int>().toString()
