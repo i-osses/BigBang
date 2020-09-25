@@ -7,12 +7,21 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetrofitInstance {
 
     companion object {
-        private fun getRetrofit(): Retrofit =
-            Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
 
-        val apiService: BeerService = getRetrofit().create(BeerService::class.java)
+
+        private var INSTANCE: Retrofit? = null
+        fun getInstance(): Retrofit {
+            synchronized(this) {
+                if (INSTANCE == null) {
+                    INSTANCE = Retrofit.Builder()
+                        .baseUrl(BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build()
+                }
+                return INSTANCE!!
+            }
+        }
+
+
     }
 }

@@ -74,7 +74,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
     //	debug database
-    debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
+   debugImplementation 'com.amitshekhar.android:debug-db:1.0.6'
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
@@ -106,6 +106,8 @@ dependencies {
 
     testImplementation "androidx.arch.core:core-testing:$arch_version"
     implementation "androidx.activity:activity-ktx:1.1.0"
+
+
 
 
 }

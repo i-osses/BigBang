@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.prodev.bigbang.model.Beer
 import com.prodev.bigbang.model.adapter.MainAdapter
-import com.prodev.bigbang.model.util.Status.*
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -27,25 +26,14 @@ class MainActivity : AppCompatActivity() {
         mViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         setupUI()
-        setupObserver()
 
+        mViewModel.cacheData()
 
-
-    }
-
-
-/*    private fun display() {
-        mViewModel.beer.observe(this, Observer {
-            Log.i("MYTAG", it.toString())
-
+        mViewModel.beer.observe(this, {
+            setAdapterList(it)
         })
     }
 
-    private fun loadDB() {
-        mViewModel.myResponse.observe(this, Observer {
-            Log.i("MYTAG2", it.toString())
-        })
-    }*/
 
     private fun setupUI() {
 
@@ -60,34 +48,8 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
     }
 
-    private fun setupObserver() {
-        mViewModel.getBeerRF().observe(this, Observer {
 
-            it?.let { resource ->
-                when (resource.status) {
-                    SUCCESS -> {
-                        recyclerView.visibility = View.VISIBLE
-                        progressBar.visibility = View.GONE
-                        resource.data?.let { beers -> retrieverList(beers) }
-                        Log.i("TAG", "SUCCESS")
-                    }
-                    ERROR -> {
-                        recyclerView.visibility = View.VISIBLE
-                        progressBar.visibility = View.GONE
-                        Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
-                        Log.i("TAG", "ERROR")
-                    }
-                    LOADING -> {
-                        recyclerView.visibility = View.GONE
-                        progressBar.visibility = View.VISIBLE
-                        Log.i("TAG", "LOADING")
-                    }
-                }
-            }
-        })
-    }
-
-    private fun retrieverList(beers: List<Beer>) {
+    private fun setAdapterList(beers: List<Beer>) {
         adapter.apply {
             addBeers(beers)
             notifyDataSetChanged()
